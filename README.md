@@ -54,36 +54,6 @@ Query flow:
 ```
 
 The binary index file is the persistence layer — it's what lets the engine "remember" previously indexed documents without redoing the parsing work. The user only ever interacts with plain `.txt` files; the binary format is internal caching, invisible to them.
-
----
-
-## Project Structure
-
-```
-autocomplete-engine/
-├── CMakeLists.txt
-├── README.md
-├── .gitignore
-├── include/
-│   ├── TrieNode.h        # Core node: children map, end-of-word flag, frequency, cached word
-│   ├── Trie.h             # Insert, prefix search, existence check
-│   ├── TopKHeap.h         # Min-heap based Top-K ranking
-│   ├── FuzzyMatcher.h     # Levenshtein edit-distance DP + closest-match search
-│   ├── Indexer.h          # Reads .txt files, tokenizes, feeds the Trie
-│   └── Serializer.h       # Binary save/load of the Trie
-├── src/
-│   ├── TrieNode.cpp
-│   ├── Trie.cpp
-│   ├── TopKHeap.cpp
-│   ├── FuzzyMatcher.cpp
-│   ├── Indexer.cpp
-│   ├── Serializer.cpp
-│   └── main.cpp           # CLI driver tying everything together
-├── data/
-│   └── sample_docs/       # Sample .txt files for testing/demo
-└── index/                  # Generated at runtime — holds trie_index.bin
-```
-
 ---
 
 ## Build & Run
